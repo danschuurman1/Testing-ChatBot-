@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Girlfriend Creator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         :root {
             --primary-color: #1a1a1a;
@@ -21,13 +22,13 @@
             color: var(--text-color);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Changed to allow scrolling */
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px; /* Added padding to top and bottom */
         }
 
-        #form-container {
+        #form-container, #chat-screen {
             background-color: var(--secondary-color);
             padding: 30px 40px;
             border-radius: var(--border-radius);
@@ -39,7 +40,7 @@
         .progress-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start; /* Align to top */
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #444;
@@ -50,9 +51,10 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            cursor: pointer; /* Make headers clickable */
+            cursor: pointer;
             opacity: 0.5;
             transition: opacity 0.3s;
+            width: 100px; /* Give steps a fixed width */
         }
         
         .step.active, .step.completed {
@@ -76,6 +78,7 @@
             margin-bottom: 8px;
             font-weight: bold;
             transition: background-color 0.3s, color 0.3s;
+            position: relative; /* For pseudo-element positioning */
         }
         
         .step.active .step-number {
@@ -86,18 +89,18 @@
         .step.completed .step-number {
             background-color: var(--success-color);
             color: white;
-            font-family: "Font Awesome 5 Free";
-            content: '\f00c'; /* Checkmark icon */
         }
         
+        /* Hide number and show checkmark when completed */
         .step.completed .step-number span {
-            display: none; /* Hide number when completed */
+            display: none;
         }
         
         .step.completed .step-number::before {
              content: '\f00c'; /* Font Awesome checkmark */
              font-family: 'Font Awesome 5 Free';
              font-weight: 900;
+             font-size: 16px;
         }
 
 
@@ -148,14 +151,15 @@
         h3 {
             border-bottom: 1px solid #444;
             padding-bottom: 10px;
+            margin-top: 30px;
             margin-bottom: 20px;
-            color: var(--text-muted);
+            color: var(--text-color);
             font-weight: normal;
         }
 
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
         }
 
@@ -179,15 +183,14 @@
 
         .option-image {
             background-color: #444;
-            height: 180px; /* Increased image height */
+            height: 220px; /* Increased image height */
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Placeholder for images/gifs */
         }
         .option-image-large {
-            height: 250px; /* Even larger for main type selection */
+            height: 280px; /* Even larger for main type selection */
         }
 
         .option-label {
@@ -197,6 +200,9 @@
         }
         
         /* Sleek, text-only options */
+        .options-section {
+            margin-bottom: 20px;
+        }
         .sleek-options-container {
             display: flex;
             flex-wrap: wrap;
@@ -211,12 +217,13 @@
             border-radius: 20px;
             cursor: pointer;
             border: 1px solid #444;
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            transition: all 0.2s;
             font-size: 14px;
         }
 
         .sleek-option:hover {
             background-color: #3a3a3a;
+            border-color: #666;
         }
 
         .sleek-option.selected {
@@ -224,11 +231,6 @@
             border-color: var(--accent-color);
             color: white;
             font-weight: bold;
-        }
-
-        /* Personality Section Fixes */
-         #page6 .options-section {
-            display: block; /* Ensure section is visible */
         }
         
         .personality-grid {
@@ -275,6 +277,18 @@
             color: white;
         }
 
+        textarea.advanced-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            background-color: var(--primary-color);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--text-color);
+            margin-top: 10px;
+            min-height: 80px;
+            display: none; /* Hidden by default */
+        }
+
 
         .navigation-btns {
             display: flex;
@@ -315,6 +329,7 @@
             border-radius: 5px;
             color: var(--text-color);
             margin-top: 5px;
+            box-sizing: border-box;
         }
         
         .form-group {
@@ -325,9 +340,13 @@
             color: var(--text-muted);
             font-size: 14px;
         }
+        
+        #chat-screen {
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
 
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -366,7 +385,7 @@
         <form id="ai-creator-form">
             <div class="form-page active" id="page1">
                 <h2 class="form-header">Choose Your Girl's Style</h2>
-                <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="options-grid" style="grid-template-columns: 1fr 1fr; gap: 25px;">
                     <div class="option-card" onclick="selectOptionAndNext(this, 'style', 'Realistic')">
                         <div class="option-image option-image-large"></div>
                         <div class="option-label">Realistic</div>
@@ -376,7 +395,7 @@
                         <div class="option-label">Anime</div>
                     </div>
                 </div>
-                 </div>
+            </div>
 
             <div class="form-page" id="page2">
                  <h2 class="form-header">Customize Body</h2>
@@ -387,6 +406,46 @@
                      <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Curvy</div></div>
                      <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Chubby</div></div>
                  </div>
+
+                 <h3>Butt Size</h3>
+                 <div class="options-grid">
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
+                 </div>
+
+                 <h3>Breast Size</h3>
+                 <div class="options-grid">
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Small</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
+                 </div>
+
+                 <h3>Ethnicity</h3>
+                 <div class="options-grid">
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Latina</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">African</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Asian</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Indian</div></div>
+                     <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Arab</div></div>
+                 </div>
+
+                 <div class="form-group" style="margin-top: 30px;">
+                    <label for="height">Height</label>
+                    <select id="height" name="height">
+                        <option value="4'5 (135 cm)">4'5" (135 cm)</option>
+                        <option value="5'5 (165 cm)" selected>5'5" (165 cm)</option>
+                        <option value="6'5 (196 cm)">6'5" (196 cm)</option>
+                    </select>
+                </div>
+                 
                  <div class="navigation-btns">
                     <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
                     <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
@@ -441,27 +500,21 @@
                 <h2 class="form-header">Outfit & Accessories</h2>
                 <div class="options-section">
                     <h3>Daily Outfit <span style="color: var(--text-muted); font-weight: normal; font-size: 1rem;">(Select one)</span></h3>
-                    <div class="sleek-options-container" id="fashionSense">
+                    <div class="sleek-options-container" data-group="fashionSense">
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Emo</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Goth</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Punk</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Tight Clothes</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Loose Clothes</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Elegant</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Revealing</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Rags</div>
                     </div>
 
                     <h3>Accessory <span style="color: var(--text-muted); font-weight: normal; font-size: 1rem;">(Optional, select one)</span></h3>
-                    <div class="sleek-options-container" id="accessory">
+                    <div class="sleek-options-container" data-group="accessory">
                         <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Ankle Bracelet</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Carnival Mask</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Beanie</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Scarf</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Cap</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Sunglasses</div>
                         <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Glasses</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Cowboy Hat</div>
                     </div>
                 </div>
                  <div class="navigation-btns">
@@ -476,54 +529,89 @@
                     <button type="button" class="randomize-btn" onclick="randomizePersonality()">Randomize</button>
                 </h2>
                 
-                <div class="options-section">
-                    <div class="personality-grid">
-                        <div class="personality-trait">
-                             <h4>Core Traits <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select one of each pair)</span></h4>
-                             <div class="trait-options" id="dominance"><div class="compact-option" onclick="selectCompact(this, 'dominance')">Submissive</div><div class="compact-option" onclick="selectCompact(this, 'dominance')">Dominant</div></div>
-                             <div class="trait-options" id="kindness"><div class="compact-option" onclick="selectCompact(this, 'kindness')">Mean</div><div class="compact-option" onclick="selectCompact(this, 'kindness')">Kind</div></div>
-                             <div class="trait-options" id="warmth"><div class="compact-option" onclick="selectCompact(this, 'warmth')">Cold</div><div class="compact-option" onclick="selectCompact(this, 'warmth')">Warm</div></div>
-                             <div class="trait-options" id="social"><div class="compact-option" onclick="selectCompact(this, 'social')">Introvert</div><div class="compact-option" onclick="selectCompact(this, 'social')">Extrovert</div></div>
-                             </div>
-                        
-                        <div class="personality-trait">
-                            <h4>
-                                Hobbies <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select up to 5)</span>
-                                <button type="button" class="advanced-btn">Advanced</button>
-                            </h4>
-                            <div class="sleek-options-container" id="hobbies">
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Reading</div>
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Gaming</div>
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Cooking</div>
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Hiking</div>
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Painting</div>
-                               <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Dancing</div>
-                            </div>
+                <div class="personality-grid">
+                    <div class="personality-trait">
+                         <h4>Core Traits <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select one of each pair)</span></h4>
+                         <div class="trait-options" data-group="dominance"><div class="compact-option" onclick="selectCompact(this, 'dominance')">Submissive</div><div class="compact-option" onclick="selectCompact(this, 'dominance')">Dominant</div></div>
+                         <div class="trait-options" data-group="kindness"><div class="compact-option" onclick="selectCompact(this, 'kindness')">Mean</div><div class="compact-option" onclick="selectCompact(this, 'kindness')">Kind</div></div>
+                         <div class="trait-options" data-group="social"><div class="compact-option" onclick="selectCompact(this, 'social')">Introvert</div><div class="compact-option" onclick="selectCompact(this, 'social')">Extrovert</div></div>
+                    </div>
+                    
+                    <div class="personality-trait">
+                        <h4>
+                            Backstory
+                            <button type="button" class="advanced-btn" onclick="toggleAdvanced('backstory')">Advanced</button>
+                        </h4>
+                        <div class="sleek-options-container" data-group="backstory">
+                           <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Orphan</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Royal</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Nomad</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Middle Class</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Poor</div>
                         </div>
+                        <textarea class="advanced-input" data-group="backstory-advanced" placeholder="Enter custom backstory..."></textarea>
+                    </div>
 
-                         <div class="personality-trait">
-                             <h4>
-                                Job / Occupation
-                                <button type="button" class="advanced-btn">Advanced</button>
-                            </h4>
-                            <div class="sleek-options-container" id="job">
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Doctor</div>
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Teacher</div>
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Artist</div>
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Model</div>
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Programmer</div>
-                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Student</div>
-                            </div>
+                     <div class="personality-trait">
+                         <h4>
+                            Job / Occupation
+                            <button type="button" class="advanced-btn" onclick="toggleAdvanced('job')">Advanced</button>
+                        </h4>
+                        <div class="sleek-options-container" data-group="job">
+                            <div class="sleek-option" onclick="selectSleek(this, 'job')">Doctor</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'job')">Teacher</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'job')">Artist</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'job')">Programmer</div>
                         </div>
+                        <textarea class="advanced-input" data-group="job-advanced" placeholder="Enter custom job..."></textarea>
+                    </div>
+                    
+                    <div class="personality-trait">
+                        <h4>
+                            Hobbies <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select up to 3)</span>
+                            <button type="button" class="advanced-btn" onclick="toggleAdvanced('hobbies')">Advanced</button>
+                        </h4>
+                        <div class="sleek-options-container" data-group="hobbies">
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 3)">Reading</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 3)">Gaming</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 3)">Cooking</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 3)">Hiking</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 3)">Painting</div>
+                        </div>
+                        <textarea class="advanced-input" data-group="hobbies-advanced" placeholder="Enter custom hobbies..."></textarea>
+                    </div>
 
+                    <div class="personality-trait">
+                        <h4>
+                            Dreams <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select up to 2)</span>
+                            <button type="button" class="advanced-btn" onclick="toggleAdvanced('dreams')">Advanced</button>
+                        </h4>
+                        <div class="sleek-options-container" data-group="dreams">
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'dreams', 2)">Fame</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'dreams', 2)">Love</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'dreams', 2)">Success</div>
+                           <div class="sleek-option" onclick="selectSleekMulti(this, 'dreams', 2)">Adventure</div>
+                        </div>
+                        <textarea class="advanced-input" data-group="dreams-advanced" placeholder="Enter custom dreams..."></textarea>
+                    </div>
+
+                    <div class="personality-trait">
+                        <h4>Relationship with you</h4>
+                        <div class="sleek-options-container" data-group="relationship">
+                           <div class="sleek-option" onclick="selectSleek(this, 'relationship')">Lovers</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'relationship')">Friends with Benefits</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'relationship')">Married</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'relationship')">Friends</div>
+                           <div class="sleek-option" onclick="selectSleek(this, 'relationship')">Strangers</div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="navigation-btns">
                     <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
                     <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
                 </div>
             </div>
-
 
             <div class="form-page" id="page7">
                 <h2 class="form-header">Character Identification</h2>
@@ -544,8 +632,6 @@
                     <select id="voice" name="voice">
                         <option value="ivana">Ivana</option>
                         <option value="sydney">Sydney v2.0</option>
-                        <option value="ella">Ella v2.0</option>
-                        <option value="marilyn">Marylin</option>
                     </select>
                 </div>
 
@@ -554,8 +640,12 @@
                     <button type="submit" class="nav-btn">Generate</button>
                 </div>
             </div>
-
         </form>
+    </div>
+
+    <div id="chat-screen">
+        <h1>Generation Complete!</h1>
+        <p>Your AI companion is ready. The chat interface would load here.</p>
     </div>
 
     <script>
@@ -564,107 +654,109 @@
         const formData = {};
 
         function changePage(direction) {
-            // Validate current page before proceeding (optional but good practice)
-            // For now, we'll just navigate
-            
             const newPage = currentPage + direction;
             if (newPage > 0 && newPage <= totalPages) {
-                // Mark current step as completed if moving forward
                 if (direction > 0) {
                      document.getElementById(`step-${currentPage}`).classList.add('completed');
                 }
-                
-                goToPage(newPage);
+                goToPage(newPage, true);
             }
         }
         
-        function goToPage(pageNumber) {
-            if (pageNumber > 0 && pageNumber <= totalPages) {
-                // Only allow jumping to completed pages or the next page
-                const targetStep = document.getElementById(`step-${pageNumber}`);
-                if (pageNumber > currentPage && !document.getElementById(`step-${currentPage}`).classList.contains('completed')) {
-                    // console.log("Complete current step first.");
-                    return;
-                }
-
-                document.querySelector('.form-page.active').classList.remove('active');
-                document.getElementById(`page${pageNumber}`).classList.add('active');
-                
-                document.querySelector('.step.active').classList.remove('active');
-                targetStep.classList.add('active');
-                
-                currentPage = pageNumber;
+        function goToPage(pageNumber, isNavigating = false) {
+            const targetStep = document.getElementById(`step-${pageNumber}`);
+            // Allow navigation to any completed page or the very next page
+            if (!isNavigating && !targetStep.classList.contains('completed')) {
+                return;
             }
+
+            document.querySelector('.form-page.active').classList.remove('active');
+            document.getElementById(`page${pageNumber}`).classList.add('active');
+            
+            document.querySelector('.step.active').classList.remove('active');
+            targetStep.classList.add('active');
+            
+            currentPage = pageNumber;
         }
         
         function selectOption(element, group) {
-            // For single-choice option cards
             const groupElements = element.parentElement.querySelectorAll('.option-card');
             groupElements.forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.querySelector('.option-label').innerText;
-            // console.log(formData);
         }
         
         function selectSleek(element, group) {
-            // For single-choice sleek options
-            const container = document.getElementById(group);
+            const container = element.closest('.sleek-options-container');
             container.querySelectorAll('.sleek-option').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.innerText;
-            // console.log(formData);
         }
         
         function selectSleekMulti(element, group, max) {
-            if (!formData[group]) {
-                formData[group] = [];
-            }
-            const value = element.innerText;
+            if (!formData[group]) formData[group] = [];
+            
             const isSelected = element.classList.toggle('selected');
+            const value = element.innerText;
             
             if (isSelected) {
                 if (formData[group].length < max) {
                     formData[group].push(value);
                 } else {
-                    // Revert if max is reached
-                    element.classList.remove('selected');
-                    alert(`You can select up to ${max} hobbies.`);
+                    element.classList.remove('selected'); // Revert selection
+                    alert(`You can select up to ${max} options.`);
                 }
             } else {
                 formData[group] = formData[group].filter(item => item !== value);
             }
-            // console.log(formData);
         }
 
         function selectCompact(element, group) {
-            const container = document.getElementById(group);
+            const container = element.closest('.trait-options');
             container.querySelectorAll('.compact-option').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.innerText;
-            // console.log(formData);
         }
 
         function selectOptionAndNext(element, group, value) {
             selectOption(element, group);
             formData[group] = value;
-            setTimeout(() => changePage(1), 200); // Small delay for visual feedback
+            setTimeout(() => changePage(1), 200);
         }
 
-        // Handle form submission
+        function randomizePersonality() {
+            const traitGroups = document.querySelectorAll('#page6 .trait-options');
+            traitGroups.forEach(group => {
+                const options = group.querySelectorAll('.compact-option');
+                const randomIndex = Math.floor(Math.random() * options.length);
+                const randomOption = options[randomIndex];
+                selectCompact(randomOption, group.dataset.group);
+            });
+        }
+        
+        function toggleAdvanced(category) {
+            const section = document.querySelector(`.personality-trait h4:has(.advanced-btn)`).closest('.personality-trait');
+            const optionsContainer = section.querySelector(`.sleek-options-container[data-group="${category}"]`);
+            const advancedInput = section.querySelector(`textarea[data-group="${category}-advanced"]`);
+
+            const isAdvanced = advancedInput.style.display === 'block';
+            advancedInput.style.display = isAdvanced ? 'none' : 'block';
+            optionsContainer.style.display = isAdvanced ? 'flex' : 'none';
+        }
+
         document.getElementById('ai-creator-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Gather final text inputs
             formData['firstName'] = document.getElementById('firstName').value;
             formData['lastName'] = document.getElementById('lastName').value;
             formData['age'] = document.getElementById('age').value;
             formData['voice'] = document.getElementById('voice').value;
             
             console.log('Final AI Configuration:', formData);
-            alert('AI Generation Started! Check the console for the final data.');
-            // Here you would integrate with CupidBot and Herahaven
+
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('chat-screen').style.display = 'block';
         });
 
     </script>
-
 </body>
 </html>
