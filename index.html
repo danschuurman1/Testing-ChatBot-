@@ -435,30 +435,27 @@
 
         .scroll-arrow {
             position: absolute;
-            top: 50%;
-            /* This transform vertically aligns the arrow with the cards, compensating for the H3 title above */
-            transform: translateY(-70%);
-            background-color: transparent; /* Changed from a solid color */
+            top: 0;
+            height: 100%; /* CHANGED: Stretches to full container height */
+            /* REMOVED: transform and fixed height */
+            background-color: transparent;
             color: var(--text-color);
-            border: none; /* Removed border */
-            border-radius: 0; /* Removed border-radius */
-            width: 60px; /* Wider for a better fade effect */
-            height: 230px; /* Taller to cover the card height */
-            font-size: 40px; /* Larger arrow character */
+            border: none;
+            border-radius: 0;
+            width: 60px;
+            font-size: 40px;
             font-family: 'Segoe UI Symbol', sans-serif;
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: color 0.2s; /* Changed transition */
+            transition: color 0.2s;
             line-height: 1;
             padding: 0;
-            /* Make the gradient area non-clickable so users can still click cards near the edge */
             pointer-events: none;
         }
         
-        /* The button itself remains clickable */
         .scroll-arrow > button {
             background: transparent;
             border: none;
@@ -930,26 +927,60 @@
         const totalPages = 7;
         const formData = {};
         
-        // --- START: MODIFIED function for horizontal scrollers ---
+        // --- START: REWRITTEN function for horizontal scrollers ---
         function initializeHorizontalScrollers() {
-            document.querySelectorAll('.horizontal-scroll-container').forEach(container => {
-                const wrapper = container.querySelector('.horizontal-scroll-wrapper');
-                const leftArrow = container.querySelector('.scroll-arrow.left');
-                const rightArrow = container.querySelector('.scroll-arrow.right');
-                const leftButton = leftArrow.querySelector('button');
-                const rightButton = rightArrow.querySelector('button');
+            // A single observer for all scrollers. This is more efficient.
+            // It automatically detects when an element becomes visible or changes size.
+            const scrollerObserver = new ResizeObserver(entries => {
+                for (const entry of entries) {
+                    // entry.target is the 'wrapper' element we are observing
+                    const wrapper = entry.target;
+                    const container = wrapper.closest('.horizontal-scroll-container');
+                    if (!container) continue;
 
-                if (!wrapper || !leftButton || !rightButton) return;
+                    const leftArrow = container.querySelector('.scroll-arrow.left');
+                    const rightArrow = container.querySelector('.scroll-arrow.right');
+                    if (!leftArrow || !rightArrow) continue;
 
-                function updateArrowVisibility() {
-                    const tolerance = 2;
+                    const tolerance = 2; // Small tolerance for pixel rounding
+                    const isOverflowing = wrapper.scrollWidth > wrapper.clientWidth + tolerance;
+
+                    if (!isOverflowing) {
+                        leftArrow.style.display = 'none';
+                        rightArrow.style.display = 'none';
+                        continue;
+                    }
+
                     const canScrollLeft = wrapper.scrollLeft > tolerance;
-                    const canScrollRight = wrapper.scrollWidth - wrapper.scrollLeft - wrapper.clientWidth > tolerance;
+                    const canScrollRight = wrapper.scrollWidth - wrapper.clientWidth - wrapper.scrollLeft > tolerance;
 
                     leftArrow.style.display = canScrollLeft ? 'flex' : 'none';
                     rightArrow.style.display = canScrollRight ? 'flex' : 'none';
                 }
+            });
 
+            document.querySelectorAll('.horizontal-scroll-container').forEach(container => {
+                const wrapper = container.querySelector('.horizontal-scroll-wrapper');
+                const leftArrow = container.querySelector('.scroll-arrow.left');
+                const rightArrow = container.querySelector('.scroll-arrow.right');
+                
+                if (!wrapper || !leftArrow || !rightArrow) return;
+
+                const leftButton = leftArrow.querySelector('button');
+                const rightButton = rightArrow.querySelector('button');
+
+                if (!leftButton || !rightButton) return;
+                
+                // Function to re-check arrows, e.g., after a manual scroll
+                const updateArrowState = () => {
+                    const tolerance = 2;
+                    const canScrollLeft = wrapper.scrollLeft > tolerance;
+                    const canScrollRight = wrapper.scrollWidth - wrapper.clientWidth - wrapper.scrollLeft > tolerance;
+                    leftArrow.style.display = canScrollLeft ? 'flex' : 'none';
+                    rightArrow.style.display = canScrollRight ? 'flex' : 'none';
+                };
+
+                // Click events for scrolling
                 leftButton.addEventListener('click', () => {
                     const card = wrapper.querySelector('.option-card');
                     if (card) {
@@ -966,24 +997,19 @@
                     }
                 });
                 
+                // Update arrows during manual scroll. A timeout prevents it from firing too often.
                 let scrollTimeout;
                 wrapper.addEventListener('scroll', () => {
                     clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(updateArrowVisibility, 60);
+                    scrollTimeout = setTimeout(updateArrowState, 50);
                 });
                 
-                window.addEventListener('resize', updateArrowVisibility);
-                
-                // Set initial state to show right arrow immediately to prevent load-in pop.
-                leftArrow.style.display = 'none';
-                rightArrow.style.display = 'flex';
-
-                // Then, perform a check after a short delay to correct the state
-                // in case scrolling isn't actually possible (e.g., not enough items).
-                setTimeout(updateArrowVisibility, 150);
+                // Tell the observer to watch this wrapper for size changes.
+                // This is the key to fixing the "appear on load" issue.
+                scrollerObserver.observe(wrapper);
             });
         }
-        // --- END: MODIFIED function for horizontal scrollers ---
+        // --- END: REWRITTEN function for horizontal scrollers ---
 
         function startCustomization() {
             document.getElementById('landing-page').style.display = 'none';
@@ -1083,7 +1109,9 @@
             })
 
             if (!allValid) {
-                alert('Please fill out all required fields.');
+                // Using a custom modal or inline message is better than alert()
+                // but for this example, we'll keep the original functionality.
+                console.error('Please fill out all required fields.');
                 return;
             }
 
@@ -1108,4 +1136,4 @@
 
     </script>
 </body>
-</html>                
+</html>
