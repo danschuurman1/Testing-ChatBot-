@@ -405,6 +405,7 @@
         /* --- START: MODIFIED styles for horizontal scroller --- */
         .horizontal-scroll-container {
             position: relative;
+            overflow: hidden; /* ADDED: This hides the scrollbar that we push down */
         }
 
         .horizontal-scroll-wrapper {
@@ -415,6 +416,9 @@
             scroll-behavior: smooth;
             padding: 5px 0;
             margin: 0 -5px;
+            /* ADDED: These two lines push the scrollbar out of the visible area */
+            padding-bottom: 20px;
+            margin-bottom: -20px;
         }
 
         .horizontal-scroll-wrapper::-webkit-scrollbar {
@@ -436,8 +440,7 @@
         .scroll-arrow {
             position: absolute;
             top: 0;
-            height: 100%; /* CHANGED: Stretches to full container height */
-            /* REMOVED: transform and fixed height */
+            height: 100%; 
             background-color: transparent;
             color: var(--text-color);
             border: none;
