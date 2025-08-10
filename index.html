@@ -402,6 +402,73 @@
             text-align: center;
         }
 
+        /* --- START: New styles for horizontal scroller --- */
+        .horizontal-scroll-container {
+            position: relative;
+        }
+
+        .horizontal-scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+            scroll-behavior: smooth;
+            padding: 5px 0;
+            margin: 0 -5px;
+        }
+
+        .horizontal-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+
+        .options-grid.horizontal-layout {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            padding: 0 5px;
+        }
+
+        .options-grid.horizontal-layout .option-card {
+            flex-shrink: 0;
+            width: 180px; /* Fixed width for consistent scrolling */
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-70%);
+            background-color: rgba(68, 68, 68, 0.8);
+            color: var(--text-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 28px;
+            font-family: 'Segoe UI Symbol', sans-serif;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+            line-height: 1;
+            padding: 0;
+        }
+        
+        .scroll-arrow:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .scroll-arrow.left {
+            left: -15px;
+        }
+
+        .scroll-arrow.right {
+            right: -15px;
+        }
+        /* --- END: New styles for horizontal scroller --- */
+
     </style>
 </head>
 <body>
@@ -471,34 +538,53 @@
                      </div>
 
                      <h3>Butt Size</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                             <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
 
                      <h3>Breast Size</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Small</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Flat</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                            <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Small</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Flat</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
 
+
                      <h3>Ethnicity</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Latina</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">African</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Asian</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Indian</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Arab</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                            <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Latina</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">African</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Asian</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Indian</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Arab</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
 
                      <div class="form-group" style="margin-top: 30px;">
@@ -519,37 +605,49 @@
                 <div class="form-page" id="page3">
                     <h2 class="form-header">Hair Style & Color</h2>
                      <h3>Hair Style</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Long</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Very Long</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Curly</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Wavy</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Bangs</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Ponytail</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Braided Ponytail</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Hair Bun</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Pigtails</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Short</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Very Short</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Bob cut</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Buzz Cut</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Punk</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                             <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Long</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Very Long</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Curly</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Wavy</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Bangs</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Ponytail</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Braided Ponytail</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Hair Bun</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Pigtails</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Short</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Very Short</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Bob cut</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Buzz Cut</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Punk</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
                      <h3>Hair Color</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Blonde</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Ginger</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">White</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Cyan</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Light Blue</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Dark Green</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Lime</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Multicolored</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                             <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Blonde</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Ginger</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">White</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Cyan</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Light Blue</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Dark Green</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Lime</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Multicolored</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
                      <div class="navigation-btns">
                         <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
@@ -560,26 +658,38 @@
                 <div class="form-page" id="page4">
                     <h2 class="form-header">Face Details</h2>
                      <h3>Eyes Color</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Blue</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Green</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">White</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Yellow</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Hazel</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                             <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Blue</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Green</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">White</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Yellow</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Hazel</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
                      <h3>Lipstick Color</h3>
-                     <div class="options-grid">
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">None</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Blue</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Red</div></div>
+                     <div class="horizontal-scroll-container">
+                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="horizontal-scroll-wrapper">
+                             <div class="options-grid horizontal-layout">
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">None</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Black</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Blue</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Pink</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Purple</div></div>
+                                 <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Red</div></div>
+                             </div>
+                        </div>
+                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
                      </div>
                      <div class="navigation-btns">
                         <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
@@ -800,9 +910,64 @@
         const totalPages = 7;
         const formData = {};
         
+        // --- START: New function for horizontal scrollers ---
+        function initializeHorizontalScrollers() {
+            document.querySelectorAll('.horizontal-scroll-container').forEach(container => {
+                const wrapper = container.querySelector('.horizontal-scroll-wrapper');
+                const leftArrow = container.querySelector('.scroll-arrow.left');
+                const rightArrow = container.querySelector('.scroll-arrow.right');
+
+                if (!wrapper || !leftArrow || !rightArrow) return;
+
+                function updateArrowVisibility() {
+                    // Use a small tolerance to handle sub-pixel rendering issues
+                    const tolerance = 2;
+                    const canScrollLeft = wrapper.scrollLeft > tolerance;
+                    const canScrollRight = wrapper.scrollWidth - wrapper.scrollLeft - wrapper.clientWidth > tolerance;
+
+                    leftArrow.style.display = canScrollLeft ? 'flex' : 'none';
+                    rightArrow.style.display = canScrollRight ? 'flex' : 'none';
+                }
+
+                leftArrow.addEventListener('click', () => {
+                    const card = wrapper.querySelector('.option-card');
+                    if (card) {
+                        // Scroll by the width of one card plus its gap (20px)
+                        const scrollAmount = card.offsetWidth + 20;
+                        wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    }
+                });
+
+                rightArrow.addEventListener('click', () => {
+                    const card = wrapper.querySelector('.option-card');
+                    if (card) {
+                        const scrollAmount = card.offsetWidth + 20;
+                        wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    }
+                });
+                
+                // We need a brief delay after a scroll event before checking visibility
+                let scrollTimeout;
+                wrapper.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(updateArrowVisibility, 60);
+                });
+                
+                // Also check visibility on window resize
+                window.addEventListener('resize', updateArrowVisibility);
+                
+                // Perform an initial check to set the arrow state correctly on load
+                // Use a timeout to ensure the layout has been calculated
+                setTimeout(updateArrowVisibility, 50);
+            });
+        }
+        // --- END: New function for horizontal scrollers ---
+
         function startCustomization() {
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('form-wrapper').style.display = 'flex';
+            // Initialize scrollers now that the form is visible
+            initializeHorizontalScrollers();
         }
 
         function changePage(direction) {
@@ -831,7 +996,7 @@
         }
         
         function selectOption(element, group) {
-            const groupElements = element.parentElement.querySelectorAll('.option-card');
+            const groupElements = element.closest('.horizontal-layout, .options-grid').querySelectorAll('.option-card');
             groupElements.forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.querySelector('.option-label').innerText;
