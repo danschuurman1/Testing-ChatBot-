@@ -402,7 +402,7 @@
             text-align: center;
         }
 
-        /* --- START: New styles for horizontal scroller --- */
+        /* --- START: MODIFIED styles for horizontal scroller --- */
         .horizontal-scroll-container {
             position: relative;
         }
@@ -436,38 +436,58 @@
         .scroll-arrow {
             position: absolute;
             top: 50%;
+            /* This transform vertically aligns the arrow with the cards, compensating for the H3 title above */
             transform: translateY(-70%);
-            background-color: rgba(68, 68, 68, 0.8);
+            background-color: transparent; /* Changed from a solid color */
             color: var(--text-color);
-            border: 1px solid var(--secondary-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 28px;
+            border: none; /* Removed border */
+            border-radius: 0; /* Removed border-radius */
+            width: 60px; /* Wider for a better fade effect */
+            height: 230px; /* Taller to cover the card height */
+            font-size: 40px; /* Larger arrow character */
             font-family: 'Segoe UI Symbol', sans-serif;
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.2s, color 0.2s;
+            transition: color 0.2s; /* Changed transition */
             line-height: 1;
             padding: 0;
+            /* Make the gradient area non-clickable so users can still click cards near the edge */
+            pointer-events: none;
         }
         
+        /* The button itself remains clickable */
+        .scroll-arrow > button {
+            background: transparent;
+            border: none;
+            width: 100%;
+            height: 100%;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            pointer-events: all; /* Make the button clickable */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .scroll-arrow:hover {
-            background-color: var(--accent-color);
-            color: white;
+            color: white; /* Simpler hover effect: just brighten the arrow */
         }
 
         .scroll-arrow.left {
-            left: -15px;
+            left: 0; /* Position at the very edge */
+            background: linear-gradient(to right, var(--secondary-color) 25%, transparent 100%);
         }
 
         .scroll-arrow.right {
-            right: -15px;
+            right: 0; /* Position at the very edge */
+            background: linear-gradient(to left, var(--secondary-color) 25%, transparent 100%);
         }
-        /* --- END: New styles for horizontal scroller --- */
+        /* --- END: MODIFIED styles for horizontal scroller --- */
+
 
     </style>
 </head>
@@ -539,7 +559,7 @@
 
                      <h3>Butt Size</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                              <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
@@ -550,12 +570,12 @@
                                  <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
 
                      <h3>Breast Size</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                             <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
@@ -567,13 +587,13 @@
                                  <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Flat</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
 
 
                      <h3>Ethnicity</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                             <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
@@ -584,7 +604,7 @@
                                  <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Arab</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
 
                      <div class="form-group" style="margin-top: 30px;">
@@ -606,7 +626,7 @@
                     <h2 class="form-header">Hair Style & Color</h2>
                      <h3>Hair Style</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                              <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Long</div></div>
@@ -625,11 +645,11 @@
                                  <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Punk</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
                      <h3>Hair Color</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                              <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
@@ -647,7 +667,7 @@
                                  <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Multicolored</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
                      <div class="navigation-btns">
                         <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
@@ -659,7 +679,7 @@
                     <h2 class="form-header">Face Details</h2>
                      <h3>Eyes Color</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                              <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
@@ -674,11 +694,11 @@
                                  <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Hazel</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
                      <h3>Lipstick Color</h3>
                      <div class="horizontal-scroll-container">
-                        <button type="button" class="scroll-arrow left" aria-label="Scroll left">‹</button>
+                        <div class="scroll-arrow left"><button type="button" aria-label="Scroll left">‹</button></div>
                         <div class="horizontal-scroll-wrapper">
                              <div class="options-grid horizontal-layout">
                                  <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">None</div></div>
@@ -689,7 +709,7 @@
                                  <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Red</div></div>
                              </div>
                         </div>
-                        <button type="button" class="scroll-arrow right" aria-label="Scroll right">›</button>
+                        <div class="scroll-arrow right"><button type="button" aria-label="Scroll right">›</button></div>
                      </div>
                      <div class="navigation-btns">
                         <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
@@ -910,17 +930,18 @@
         const totalPages = 7;
         const formData = {};
         
-        // --- START: New function for horizontal scrollers ---
+        // --- START: MODIFIED function for horizontal scrollers ---
         function initializeHorizontalScrollers() {
             document.querySelectorAll('.horizontal-scroll-container').forEach(container => {
                 const wrapper = container.querySelector('.horizontal-scroll-wrapper');
                 const leftArrow = container.querySelector('.scroll-arrow.left');
                 const rightArrow = container.querySelector('.scroll-arrow.right');
+                const leftButton = leftArrow.querySelector('button');
+                const rightButton = rightArrow.querySelector('button');
 
-                if (!wrapper || !leftArrow || !rightArrow) return;
+                if (!wrapper || !leftButton || !rightButton) return;
 
                 function updateArrowVisibility() {
-                    // Use a small tolerance to handle sub-pixel rendering issues
                     const tolerance = 2;
                     const canScrollLeft = wrapper.scrollLeft > tolerance;
                     const canScrollRight = wrapper.scrollWidth - wrapper.scrollLeft - wrapper.clientWidth > tolerance;
@@ -929,44 +950,44 @@
                     rightArrow.style.display = canScrollRight ? 'flex' : 'none';
                 }
 
-                leftArrow.addEventListener('click', () => {
+                leftButton.addEventListener('click', () => {
                     const card = wrapper.querySelector('.option-card');
                     if (card) {
-                        // Scroll by the width of one card plus its gap (20px)
-                        const scrollAmount = card.offsetWidth + 20;
+                        const scrollAmount = (card.offsetWidth + 20) * 2; // Scroll by two cards
                         wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
                     }
                 });
 
-                rightArrow.addEventListener('click', () => {
+                rightButton.addEventListener('click', () => {
                     const card = wrapper.querySelector('.option-card');
                     if (card) {
-                        const scrollAmount = card.offsetWidth + 20;
+                        const scrollAmount = (card.offsetWidth + 20) * 2; // Scroll by two cards
                         wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                     }
                 });
                 
-                // We need a brief delay after a scroll event before checking visibility
                 let scrollTimeout;
                 wrapper.addEventListener('scroll', () => {
                     clearTimeout(scrollTimeout);
                     scrollTimeout = setTimeout(updateArrowVisibility, 60);
                 });
                 
-                // Also check visibility on window resize
                 window.addEventListener('resize', updateArrowVisibility);
                 
-                // Perform an initial check to set the arrow state correctly on load
-                // Use a timeout to ensure the layout has been calculated
-                setTimeout(updateArrowVisibility, 50);
+                // Set initial state to show right arrow immediately to prevent load-in pop.
+                leftArrow.style.display = 'none';
+                rightArrow.style.display = 'flex';
+
+                // Then, perform a check after a short delay to correct the state
+                // in case scrolling isn't actually possible (e.g., not enough items).
+                setTimeout(updateArrowVisibility, 150);
             });
         }
-        // --- END: New function for horizontal scrollers ---
+        // --- END: MODIFIED function for horizontal scrollers ---
 
         function startCustomization() {
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('form-wrapper').style.display = 'flex';
-            // Initialize scrollers now that the form is visible
             initializeHorizontalScrollers();
         }
 
@@ -1004,8 +1025,6 @@
         
         function selectSleek(element, group) {
             const container = element.closest('.sleek-options-container');
-            // This script only allows for one selection. 
-            // To allow multiple selections as requested for Hobbies/Dreams, the script would need to be changed.
             container.querySelectorAll('.sleek-option').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.innerText;
@@ -1074,7 +1093,6 @@
             formData['age'] = document.getElementById('age').value;
             formData['voice'] = document.getElementById('voice').value;
 
-            // Collect advanced input data
             document.querySelectorAll('textarea.advanced-input').forEach(textarea => {
                 if (textarea.style.display === 'block' && textarea.value) {
                     const group = textarea.dataset.group.replace('-advanced', '');
@@ -1090,4 +1108,4 @@
 
     </script>
 </body>
-</html>
+</html>                
