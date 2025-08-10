@@ -18,12 +18,13 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #12001a;
+            background-color: #12001a; /* Dark background for the moody theme */
             color: var(--text-color);
             margin: 0;
             padding: 0;
         }
         
+        /* Landing Page Styles */
         #landing-page {
             display: flex;
             flex-direction: column;
@@ -69,12 +70,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066; }
-            50% { text-shadow: 0 0 20px #ff4da6, 0 0 40px #ff4da6; }
+            0%, 100% {
+                text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff4da6, 0 0 40px #ff4da6;
+            }
         }
 
+        /* Form Container Styles */
         #form-wrapper {
-            display: none;
+            display: none; /* Hidden by default */
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
@@ -110,8 +116,14 @@
             width: 100px;
         }
         
-        .step.active, .step.completed { opacity: 1; }
-        .step.active .step-name { color: var(--accent-color); font-weight: bold; }
+        .step.active, .step.completed {
+            opacity: 1;
+        }
+        
+        .step.active .step-name {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
 
         .step-number {
             width: 30px;
@@ -128,9 +140,20 @@
             position: relative;
         }
         
-        .step.active .step-number { background-color: var(--accent-color); color: white; }
-        .step.completed .step-number { background-color: var(--success-color); color: white; }
-        .step.completed .step-number span { display: none; }
+        .step.active .step-number {
+             background-color: var(--accent-color);
+             color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .step.completed .step-number span {
+            display: none;
+        }
+        
         .step.completed .step-number::before {
              content: '\f00c';
              font-family: 'Font Awesome 5 Free';
@@ -138,8 +161,15 @@
              font-size: 16px;
         }
 
-        .step-name { font-size: 14px; color: var(--text-muted); }
-        .form-page { display: none; }
+        .step-name {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .form-page {
+            display: none;
+        }
+
         .form-page.active {
             display: block;
             animation: fadeIn 0.5s ease-in-out;
@@ -170,7 +200,10 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .randomize-btn:hover, .advanced-btn:hover { background-color: var(--accent-color); color: white; }
+        .randomize-btn:hover, .advanced-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
         
         h3 {
             border-bottom: 1px solid #444;
@@ -181,43 +214,11 @@
             font-weight: normal;
         }
 
-        .scroll-container {
-            position: relative;
-        }
-
         .options-grid {
             display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: minmax(180px, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
-            overflow-x: auto;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-            scroll-behavior: smooth;
         }
-        .options-grid::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
-
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s, opacity 0.3s;
-            opacity: 0.7;
-        }
-        .scroll-btn:hover { background-color: rgba(0, 0, 0, 0.8); opacity: 1; }
-        .scroll-btn.left-arrow { left: -20px; }
-        .scroll-btn.right-arrow { right: -20px; }
-        .scroll-btn.hidden { opacity: 0; pointer-events: none; }
-
 
         .option-card {
             background-color: #2a2a2a;
@@ -226,10 +227,12 @@
             cursor: pointer;
             border: 2px solid transparent;
             transition: border-color 0.3s, transform 0.2s;
-            width: 180px; /* Fixed width for predictable scrolling */
         }
         
-        .option-card:hover { transform: translateY(-5px); }
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+
         .option-card.selected {
             border-color: var(--accent-color);
             box-shadow: 0 0 15px rgba(255, 59, 95, 0.4);
@@ -239,11 +242,30 @@
             background-color: #444;
             height: 220px;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .option-image-large { height: 280px; }
-        .option-label { padding: 15px; text-align: center; font-weight: 500; }
+        .option-image-large {
+            height: 280px;
+        }
+
+        .option-label {
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
         
-        .sleek-options-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .options-section {
+            margin-bottom: 20px;
+        }
+        .sleek-options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .sleek-option {
             background-color: #2a2a2a;
             color: var(--text-color);
@@ -254,7 +276,12 @@
             transition: all 0.2s;
             font-size: 14px;
         }
-        .sleek-option:hover { background-color: #3a3a3a; border-color: #666; }
+
+        .sleek-option:hover {
+            background-color: #3a3a3a;
+            border-color: #666;
+        }
+
         .sleek-option.selected {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
@@ -262,8 +289,18 @@
             font-weight: bold;
         }
         
-        .personality-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
-        .personality-trait { background-color: #2a2a2a; padding: 20px; border-radius: var(--border-radius); }
+        .personality-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .personality-trait {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: var(--border-radius);
+        }
+        
         .personality-trait h4 {
             margin-top: 0;
             margin-bottom: 15px;
@@ -274,7 +311,11 @@
             align-items: center;
         }
         
-        .trait-options { display: flex; gap: 10px; }
+        .trait-options {
+            display: flex;
+            gap: 10px;
+        }
+        
         .compact-option {
             flex-grow: 1;
             text-align: center;
@@ -285,7 +326,12 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .compact-option.selected { background-color: var(--accent-color); border-color: var(--accent-color); color: white; }
+        
+        .compact-option.selected {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
 
         textarea.advanced-input {
             width: calc(100% - 22px);
@@ -316,10 +362,19 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+            transition: background-color 0.3s;
         }
-        .nav-btn:hover { background-color: #d62f4c; }
-        .nav-btn.back-btn { background-color: #444; }
-        .nav-btn.back-btn:hover { background-color: #555; }
+
+        .nav-btn:hover {
+            background-color: #d62f4c;
+        }
+
+        .nav-btn.back-btn {
+            background-color: #444;
+        }
+        .nav-btn.back-btn:hover {
+            background-color: #555;
+        }
         
         input[type="text"], input[type="number"], select {
             width: 100%;
@@ -332,9 +387,19 @@
             box-sizing: border-box;
         }
         
-        .form-group { margin-bottom: 20px; }
-        label { color: var(--text-muted); font-size: 14px; }
-        #chat-screen { display: none; text-align: center; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        #chat-screen {
+            display: none;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -349,219 +414,235 @@
     <div id="form-wrapper">
         <div id="form-container">
             <div class="progress-header">
-                <div class="step active" id="step-1" onclick="goToPage(1)"><div class="step-number"><span>1</span></div><div class="step-name">Type</div></div>
-                 <div class="step" id="step-2" onclick="goToPage(2)"><div class="step-number"><span>2</span></div><div class="step-name">Body</div></div>
-                 <div class="step" id="step-3" onclick="goToPage(3)"><div class="step-number"><span>3</span></div><div class="step-name">Hair</div></div>
-                 <div class="step" id="step-4" onclick="goToPage(4)"><div class="step-number"><span>4</span></div><div class="step-name">Face</div></div>
-                 <div class="step" id="step-5" onclick="goToPage(5)"><div class="step-number"><span>5</span></div><div class="step-name">Clothing</div></div>
-                 <div class="step" id="step-6" onclick="goToPage(6)"><div class="step-number"><span>6</span></div><div class="step-name">Personality</div></div>
-                 <div class="step" id="step-7" onclick="goToPage(7)"><div class="step-number"><span>7</span></div><div class="step-name">Identification</div></div>
+                <div class="step active" id="step-1" onclick="goToPage(1)">
+                    <div class="step-number"><span>1</span></div>
+                    <div class="step-name">Type</div>
+                </div>
+                <div class="step" id="step-2" onclick="goToPage(2)">
+                    <div class="step-number"><span>2</span></div>
+                    <div class="step-name">Body</div>
+                </div>
+                <div class="step" id="step-3" onclick="goToPage(3)">
+                    <div class="step-number"><span>3</span></div>
+                    <div class="step-name">Hair</div>
+                </div>
+                <div class="step" id="step-4" onclick="goToPage(4)">
+                    <div class="step-number"><span>4</span></div>
+                    <div class="step-name">Face</div>
+                </div>
+                <div class="step" id="step-5" onclick="goToPage(5)">
+                    <div class="step-number"><span>5</span></div>
+                    <div class="step-name">Clothing</div>
+                </div>
+                <div class="step" id="step-6" onclick="goToPage(6)">
+                    <div class="step-number"><span>6</span></div>
+                    <div class="step-name">Personality</div>
+                </div>
+                <div class="step" id="step-7" onclick="goToPage(7)">
+                    <div class="step-number"><span>7</span></div>
+                    <div class="step-name">Identification</div>
+                </div>
             </div>
 
             <form id="ai-creator-form">
                 <div class="form-page active" id="page1">
                     <h2 class="form-header">Choose Your Girl's Style</h2>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-                        <div class="option-card" onclick="selectOptionAndNext(this, 'style', 'Realistic')"><div class="option-image option-image-large"></div><div class="option-label">Realistic</div></div>
-                        <div class="option-card" onclick="selectOptionAndNext(this, 'style', 'Anime')"><div class="option-image option-image-large"></div><div class="option-label">Anime</div></div>
+                    <div class="options-grid" style="grid-template-columns: 1fr 1fr; gap: 25px;">
+                        <div class="option-card" onclick="selectOptionAndNext(this, 'style', 'Realistic')">
+                            <div class="option-image option-image-large"></div>
+                            <div class="option-label">Realistic</div>
+                        </div>
+                        <div class="option-card" onclick="selectOptionAndNext(this, 'style', 'Anime')">
+                            <div class="option-image option-image-large"></div>
+                            <div class="option-label">Anime</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-page" id="page2">
                      <h2 class="form-header">Customize Body</h2>
                      <h3>Body Type</h3>
-                     <div class="options-grid" style="grid-auto-flow: initial; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+                     <div class="options-grid">
                          <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
                          <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Muscular</div></div>
                          <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Curvy</div></div>
                          <div class="option-card" onclick="selectOption(this, 'bodyType')"><div class="option-image"></div><div class="option-label">Chubby</div></div>
                      </div>
+
                      <h3>Butt Size</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Skinny</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'buttSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
                      </div>
+
                      <h3>Breast Size</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Large</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Very Small</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Small</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Medium</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Large</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'breastSize')"><div class="option-image"></div><div class="option-label">Gigantic</div></div>
                      </div>
+
                      <h3>Ethnicity</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Latina</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">African</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Asian</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Indian</div></div>
-                             <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Arab</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Caucasian</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Latina</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">African</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'ethnicity')"><div class="option-image"></div><div class="option-label">Asian</div></div>
                      </div>
+
                      <div class="form-group" style="margin-top: 30px;">
                         <label for="height">Height</label>
-                        <select id="height" name="height"></select>
+                        <select id="height" name="height">
+                            <option value="4'5 (135 cm)">4'5" (135 cm)</option>
+                            <option value="5'5 (165 cm)" selected>5'5" (165 cm)</option>
+                            <option value="6'5 (196 cm)">6'5" (196 cm)</option>
+                        </select>
                     </div>
-                     <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="button" class="nav-btn" onclick="changePage(1)">Next</button></div>
+                     
+                     <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
+                    </div>
                 </div>
 
                 <div class="form-page" id="page3">
                     <h2 class="form-header">Hair Style & Color</h2>
                      <h3>Hair Style</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Long</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Curly</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Wavy</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Bangs</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Ponytail</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Short</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Braided Ponytail</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Hair Bun</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Pigtails</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Very Long</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Long</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Curly</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Wavy</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairstyle')"><div class="option-image"></div><div class="option-label">Short</div></div>
                      </div>
                      <h3>Hair Color</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Blonde</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Ginger</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Light Blue</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">White</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Blonde</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'hairColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
                      </div>
-                     <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="button" class="nav-btn" onclick="changePage(1)">Next</button></div>
+                     <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
+                    </div>
                 </div>
 
                 <div class="form-page" id="page4">
                     <h2 class="form-header">Face Details</h2>
                      <h3>Eyes Color</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Blue</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Green</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Red</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">White</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Yellow</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Blue</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Green</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Brown</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'eyeColor')"><div class="option-image"></div><div class="option-label">Hazel</div></div>
                      </div>
                      <h3>Lipstick Color</h3>
-                     <div class="scroll-container">
-                         <button type="button" class="scroll-btn left-arrow" onclick="scrollGrid(this, -1)">&#10094;</button>
-                         <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">None</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Black</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Blue</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Pink</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Purple</div></div>
-                            <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Red</div></div>
-                         </div>
-                         <button type="button" class="scroll-btn right-arrow" onclick="scrollGrid(this, 1)">&#10095;</button>
+                     <div class="options-grid">
+                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">None</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Pink</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Red</div></div>
+                         <div class="option-card" onclick="selectOption(this, 'lipstick')"><div class="option-image"></div><div class="option-label">Black</div></div>
                      </div>
-                     <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="button" class="nav-btn" onclick="changePage(1)">Next</button></div>
+                     <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
+                    </div>
                 </div>
 
                 <div class="form-page" id="page5">
                     <h2 class="form-header">Outfit & Accessories</h2>
-                    <h3>Fashion Sense (select one)</h3>
-                    <div class="sleek-options-container">
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Emo</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Goth</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Punk</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Tight Clothes</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Loose Clothes</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Elegant</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Revealing</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Rags</div>
+                    <div class="options-section">
+                        <h3>Daily Outfit <span style="color: var(--text-muted); font-weight: normal; font-size: 1rem;">(Select one)</span></h3>
+                        <div class="sleek-options-container" data-group="fashionSense">
+                            <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Emo</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Goth</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Punk</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'fashionSense')">Elegant</div>
+                        </div>
+
+                        <h3>Accessory <span style="color: var(--text-muted); font-weight: normal; font-size: 1rem;">(Optional, select one)</span></h3>
+                        <div class="sleek-options-container" data-group="accessory">
+                            <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Ankle Bracelet</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Beanie</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Scarf</div>
+                            <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Glasses</div>
+                        </div>
                     </div>
-                    <h3>Accessory (Optional, select one)</h3>
-                    <div class="sleek-options-container">
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Ankle Bracelet</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Carnival Mask</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Beanie</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Scarf</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Cap</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Sunglasses</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Glasses</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Cowboy Hat</div>
-                        <div class="sleek-option" onclick="selectSleek(this, 'accessory')">Bag</div>
+                     <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
                     </div>
-                     <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="button" class="nav-btn" onclick="changePage(1)">Next</button></div>
                 </div>
 
                 <div class="form-page" id="page6">
-                    <h2 class="form-header">Personality <button type="button" class="randomize-btn" onclick="randomizePersonality()">Randomize</button></h2>
+                    <h2 class="form-header">
+                        Personality
+                        <button type="button" class="randomize-btn" onclick="randomizePersonality()">Randomize</button>
+                    </h2>
+                    
                     <div class="personality-grid">
                         <div class="personality-trait">
-                             <h4>Core Traits</h4>
+                             <h4>Core Traits <span style="color: var(--text-muted); font-weight: normal; font-size: 0.9rem;">(Select one of each pair)</span></h4>
                              <div class="trait-options" data-group="dominance"><div class="compact-option" onclick="selectCompact(this, 'dominance')">Submissive</div><div class="compact-option" onclick="selectCompact(this, 'dominance')">Dominant</div></div>
                              <div class="trait-options" data-group="kindness"><div class="compact-option" onclick="selectCompact(this, 'kindness')">Mean</div><div class="compact-option" onclick="selectCompact(this, 'kindness')">Kind</div></div>
-                             <div class="trait-options" data-group="social"><div class="compact-option" onclick="selectCompact(this, 'social')">Introvert</div><div class="compact-option" onclick="selectCompact(this, 'social')">Extrovert</div></div>
-                             <div class="trait-options" data-group="honesty"><div class="compact-option" onclick="selectCompact(this, 'honesty')">Honest</div><div class="compact-option" onclick="selectCompact(this, 'honesty')">Liar</div></div>
                         </div>
+                        
                         <div class="personality-trait">
-                            <h4>Backstory <button type="button" class="advanced-btn" onclick="toggleAdvanced(this)">Advanced</button></h4>
-                            <div class="sleek-options-container" data-group="backstory"><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Orphan</div><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Royal</div><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Nomad</div><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Refugee</div><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Criminal</div><div class="sleek-option" onclick="selectSleek(this, 'backstory')">Middle Class</div></div>
-                            <textarea class="advanced-input" placeholder="Enter custom backstory..."></textarea>
+                            <h4>Backstory <button type="button" class="advanced-btn" onclick="toggleAdvanced('backstory')">Advanced</button></h4>
+                            <div class="sleek-options-container" data-group="backstory">
+                               <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Orphan</div>
+                               <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Royal</div>
+                               <div class="sleek-option" onclick="selectSleek(this, 'backstory')">Middle Class</div>
+                            </div>
+                            <textarea class="advanced-input" data-group="backstory-advanced" placeholder="Enter custom backstory..."></textarea>
                         </div>
+                        
                         <div class="personality-trait">
-                             <h4>Job / Occupation <button type="button" class="advanced-btn" onclick="toggleAdvanced(this)">Advanced</button></h4>
-                            <div class="sleek-options-container" data-group="job"><div class="sleek-option" onclick="selectSleek(this, 'job')">Doctor</div><div class="sleek-option" onclick="selectSleek(this, 'job')">Teacher</div><div class="sleek-option" onclick="selectSleek(this, 'job')">Artist</div><div class="sleek-option" onclick="selectSleek(this, 'job')">Programmer</div><div class="sleek-option" onclick="selectSleek(this, 'job')">Model</div><div class="sleek-option" onclick="selectSleek(this, 'job')">Student</div></div>
-                            <textarea class="advanced-input" placeholder="Enter custom job..."></textarea>
-                        </div>
-                         <div class="personality-trait">
-                            <h4>Hobbies (Select up to 5) <button type="button" class="advanced-btn" onclick="toggleAdvanced(this)">Advanced</button></h4>
-                            <div class="sleek-options-container" data-group="hobbies"><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Reading</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Gaming</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Cooking</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Hiking</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Painting</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Traveling</div><div class="sleek-option" onclick="selectSleekMulti(this, 'hobbies', 5)">Photography</div></div>
-                            <textarea class="advanced-input" placeholder="Enter custom hobbies..."></textarea>
-                        </div>
-                        <div class="personality-trait">
-                            <h4>Relationship with you</h4>
-                            <div class="sleek-options-container" data-group="relationship"><div class="sleek-option" onclick="selectSleek(this, 'relationship')">Lovers</div><div class="sleek-option" onclick="selectSleek(this, 'relationship')">Friends with Benefits</div><div class="sleek-option" onclick="selectSleek(this, 'relationship')">Married</div><div class="sleek-option" onclick="selectSleek(this, 'relationship')">Friends</div><div class="sleek-option" onclick="selectSleek(this, 'relationship')">Strangers</div></div>
+                             <h4>Job / Occupation <button type="button" class="advanced-btn" onclick="toggleAdvanced('job')">Advanced</button></h4>
+                            <div class="sleek-options-container" data-group="job">
+                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Doctor</div>
+                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Teacher</div>
+                                <div class="sleek-option" onclick="selectSleek(this, 'job')">Artist</div>
+                            </div>
+                            <textarea class="advanced-input" data-group="job-advanced" placeholder="Enter custom job..."></textarea>
                         </div>
                     </div>
-                    <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="button" class="nav-btn" onclick="changePage(1)">Next</button></div>
+
+                    <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="button" class="nav-btn" onclick="changePage(1)">Next</button>
+                    </div>
                 </div>
 
                 <div class="form-page" id="page7">
                     <h2 class="form-header">Character Identification</h2>
-                    <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" required></div>
-                    <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName"></div>
-                    <div class="form-group"><label for="age">Age</label><input type="number" id="age" name="age" required min="18"></div>
-                    <div class="form-group"><label for="voice">Voice</label><select id="voice" name="voice"><option value="ivana">Ivana</option><option value="sydney">Sydney v2.0</option></select></div>
-                    <div class="navigation-btns"><button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button><button type="submit" class="nav-btn">Generate</button></div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName">
+                    </div>
+                     <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" required min="18">
+                    </div>
+                     <div class="form-group">
+                        <label for="voice">Voice</label>
+                        <select id="voice" name="voice">
+                            <option value="ivana">Ivana</option>
+                            <option value="sydney">Sydney v2.0</option>
+                        </select>
+                    </div>
+
+                    <div class="navigation-btns">
+                        <button type="button" class="nav-btn back-btn" onclick="changePage(-1)">Back</button>
+                        <button type="submit" class="nav-btn">Generate</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -581,7 +662,6 @@
         function startCustomization() {
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('form-wrapper').style.display = 'flex';
-            document.querySelectorAll('.options-grid').forEach(updateArrowStates);
         }
 
         function changePage(direction) {
@@ -596,7 +676,7 @@
         
         function goToPage(pageNumber, isNavigating = false) {
             const targetStep = document.getElementById(`step-${pageNumber}`);
-            if (!isNavigating && !targetStep.classList.contains('completed') && pageNumber > currentPage) {
+            if (!isNavigating && !targetStep.classList.contains('completed')) {
                 return;
             }
 
@@ -610,7 +690,7 @@
         }
         
         function selectOption(element, group) {
-            const groupElements = element.closest('.options-grid').querySelectorAll('.option-card');
+            const groupElements = element.parentElement.querySelectorAll('.option-card');
             groupElements.forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.querySelector('.option-label').innerText;
@@ -621,22 +701,6 @@
             container.querySelectorAll('.sleek-option').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             formData[group] = element.innerText;
-        }
-
-        function selectSleekMulti(element, group, max) {
-            if (!formData[group]) formData[group] = [];
-            const isSelected = element.classList.toggle('selected');
-            const value = element.innerText;
-            if (isSelected) {
-                if (formData[group].length < max) {
-                    formData[group].push(value);
-                } else {
-                    element.classList.remove('selected');
-                    alert(`You can select up to ${max} options.`);
-                }
-            } else {
-                formData[group] = formData[group].filter(item => item !== value);
-            }
         }
         
         function selectCompact(element, group) {
@@ -653,61 +717,34 @@
         }
 
         function randomizePersonality() {
-            document.querySelectorAll('#page6 .trait-options').forEach(group => {
+            const traitGroups = document.querySelectorAll('#page6 .trait-options');
+            traitGroups.forEach(group => {
                 const options = group.querySelectorAll('.compact-option');
-                const randomOption = options[Math.floor(Math.random() * options.length)];
+                const randomIndex = Math.floor(Math.random() * options.length);
+                const randomOption = options[randomIndex];
                 selectCompact(randomOption, group.dataset.group);
             });
         }
         
-        function toggleAdvanced(button) {
-            const section = button.closest('.personality-trait');
-            const optionsContainer = section.querySelector('.sleek-options-container');
-            const advancedInput = section.querySelector('textarea.advanced-input');
+        function toggleAdvanced(category) {
+            const section = event.target.closest('.personality-trait');
+            const optionsContainer = section.querySelector(`.sleek-options-container[data-group="${category}"]`);
+            const advancedInput = section.querySelector(`textarea[data-group="${category}-advanced"]`);
+
             const isAdvanced = advancedInput.style.display === 'block';
             advancedInput.style.display = isAdvanced ? 'none' : 'block';
             optionsContainer.style.display = isAdvanced ? 'flex' : 'none';
         }
 
-        function scrollGrid(button, direction) {
-            const grid = button.parentElement.querySelector('.options-grid');
-            const scrollAmount = grid.querySelector('.option-card').offsetWidth + 20; // card width + gap
-            grid.scrollLeft += scrollAmount * direction;
-        }
-
-        function updateArrowStates(grid) {
-            const container = grid.parentElement;
-            const leftArrow = container.querySelector('.left-arrow');
-            const rightArrow = container.querySelector('.right-arrow');
-            if (!leftArrow) return; // Not a scrollable grid
-            
-            leftArrow.classList.toggle('hidden', grid.scrollLeft <= 0);
-            const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
-            rightArrow.classList.toggle('hidden', grid.scrollLeft >= maxScrollLeft - 1); // -1 for precision
-        }
-
-        document.querySelectorAll('.options-grid').forEach(grid => {
-            grid.addEventListener('scroll', () => updateArrowStates(grid));
-        });
-
-        // Populate height dropdown
-        const heightSelect = document.getElementById('height');
-        for (let ft = 4; ft <= 6; ft++) {
-            for (let inch = 0; inch < 12; inch++) {
-                if (ft === 4 && inch < 5) continue;
-                if (ft === 6 && inch > 6) continue;
-                let totalInches = ft * 12 + inch;
-                let cm = Math.round(totalInches * 2.54);
-                let option = document.createElement('option');
-                option.value = `${ft}'${inch}" (${cm} cm)`;
-                option.textContent = `${ft}'${inch}" (${cm} cm)`;
-                if (ft === 5 && inch === 5) option.selected = true;
-                heightSelect.appendChild(option);
-            }
-        }
-        
         document.getElementById('ai-creator-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            formData['firstName'] = document.getElementById('firstName').value;
+            formData['lastName'] = document.getElementById('lastName').value;
+            formData['age'] = document.getElementById('age').value;
+            formData['voice'] = document.getElementById('voice').value;
+            
+            console.log('Final AI Configuration:', formData);
+
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('chat-screen').style.display = 'block';
         });
